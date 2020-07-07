@@ -301,6 +301,8 @@ def check_data_params(params):
     required_para = required_para_train | set([(l2, l3) for _, l2, l3 in params.bt_steps])
     print(required_para_train)
     print(required_para)
+    print(params.data_path)
+    print(params.langs)
     params.para_dataset = {
         (src, tgt): {
             splt: (os.path.join(params.data_path, '%s.%s-%s.%s.pth' % (splt, src, tgt, src)),
@@ -310,6 +312,10 @@ def check_data_params(params):
         } for src in params.langs for tgt in params.langs
         if src < tgt and ((src, tgt) in required_para or (tgt, src) in required_para)
     }
+    try:
+        print(src,tgt)
+    except:
+        print("cannot print src and tgt here")
     print(params.para_dataset.values())
     for paths in params.para_dataset.values():
         for p1, p2 in paths.values():
